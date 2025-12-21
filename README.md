@@ -16,7 +16,7 @@
 使用麻省理工学院许可证
 
 ## 技术支持
-如有问题或建议，请联系1699313603@qq.com。
+如有问题或建议，请联系1600313803@qq.com。
 
 ## 更新日志
 v1.0.0 (2024-01-01)-Winter to Spring2024
@@ -42,7 +42,7 @@ This project was initiated in September 2023, with version 1.0.0 released in 202
 Licensed under the MIT License.
 
 ## Technical Support
-For any questions or suggestions, please contact 1699313603@qq.com.
+For any questions or suggestions, please contact 1600313803@qq.com.
 
 ## Update Log
 v1.0.0 (2024-01-01) - Winter to Spring 2024

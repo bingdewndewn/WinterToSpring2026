@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Winter to Spring - 项目介绍</title>
+    <title>Winter to Spring-项目简介</title>
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <style>
         /* 全局样式重置与基础设置 */
         * {
@@ -24,74 +25,100 @@
             color: #1a1a2e;
         }
 
-        /* 导航栏样式 - 增强玻璃质感 */
-        .navbar {
-            width: 100%;
-            max-width: 1200px;
-            padding: 16px 24px;
-            margin-bottom: 32px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 16px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            opacity: 0;
-            transform: translateY(-20px);
-            animation: fadeInUp 0.8s ease forwards;
-            animation-delay: 0.2s;
-        }
+        /* 导航栏样式 - 强化玻璃质感+确保宽度撑满 */
+.navbar {
+    width: 100%; /* 关键：撑满父容器宽度 */
+    max-width: 1200px; /* 限制最大宽度，避免过宽 */
+    margin: 0 auto 40px; /* 居中显示，底部留白 */
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between; /* 左右元素分散对齐 */
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 24px;
+    position: relative;
+    z-index: 100;
+}
 
-        .navbar-left {
-            font-size: 20px;
-            font-weight: 600;
-            color: #2d3748;
-            letter-spacing: 0.5px;
-        }
+/* 左侧标题样式（保持原有） */
+.navbar-left {
+    font-size: 22px;
+    font-weight: 600;
+    color: #2d3748;
+}
 
-        .navbar-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+/* 右侧容器（确保内容右对齐且不挤压） */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* 元素间距，避免拥挤 */
+}
 
-        .greeting {
-            font-size: 18px;
-            color: #4a5568;
-            font-weight: 500;
-        }
+/* 问候语样式 */
+.navbar-greeting {
+    font-size: 20px;
+    font-weight: 500;
+    color: #4a5568;
+    white-space: nowrap; /* 避免文字换行导致布局错乱 */
+}
 
-        /* 返回主页按钮 - 嵌入导航栏，增强玻璃质感 */
-        .back-button {
-            padding: 10px 22px;
-            background: rgba(66, 153, 225, 0.25);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(66, 153, 225, 0.4);
-            border-radius: 50px;
-            color: #2d7dd2;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            box-shadow: 0 2px 8px rgba(66, 153, 225, 0.1);
-        }
+/* 问卷按钮样式（保持原有交互） */
+.feedback-btn {
+    padding: 12px 24px;
+    border-radius: 30px;
+    background-color: rgba(209, 213, 219, 0.35);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    color: #374151;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 20px rgba(156, 163, 175, 0.2),
+                inset 0 2px 4px rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+    position: relative;
+    overflow: hidden;
+}
 
-        .back-button:hover {
-            background: rgba(66, 153, 225, 0.35);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.2);
-            border-color: rgba(66, 153, 225, 0.5);
-        }
+/* 按钮动画（保持原有） */
+.feedback-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    animation: glassShine 3s infinite linear;
+}
 
-        .back-button:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 6px rgba(66, 153, 225, 0.15);
-        }
+@keyframes glassShine {
+    0% { transform: rotate(30deg) translateX(-100%); }
+    100% { transform: rotate(30deg) translateX(100%); }
+}
+
+.feedback-btn:hover {
+    background-color: rgba(209, 213, 219, 0.45);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(156, 163, 175, 0.25),
+                inset 0 2px 6px rgba(255, 255, 255, 0.6);
+}
+
+.feedback-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(156, 163, 175, 0.2),
+                inset 0 1px 3px rgba(255, 255, 255, 0.5);
+}
 
         /* 主体内容区 - 增强玻璃质感 */
         .content-container {
@@ -198,85 +225,52 @@
             }
         }
 
-        /* 移动端适配优化 */
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 12px 16px;
-                border-radius: 12px;
-            }
+        /* 平板及以下设备适配 */
+@media (max-width: 768px) {
+    .navbar {
+        width: 100%; /* 强制撑满屏幕宽度 */
+        padding: 14px 18px;
+        margin-bottom: 30px;
+    }
 
-            .navbar-left {
-                font-size: 18px;
-            }
+    .navbar-left { font-size: 18px; }
+    .navbar-greeting { font-size: 15px; }
 
-            .greeting {
-                font-size: 15px;
-            }
+    .feedback-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
 
-            .back-button {
-                padding: 8px 16px;
-                font-size: 14px;
-            }
+/* 手机设备适配 */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 12px 16px;
+    }
 
-            .content-container {
-                padding: 24px;
-                border-radius: 16px;
-            }
+    .navbar-right {
+        gap: 12px; /* 缩小间距，避免换行 */
+    }
 
-            .section-title {
-                font-size: 20px;
-            }
-
-            .section-content {
-                font-size: 15px;
-                line-height: 1.7;
-            }
-
-            .features-list li {
-                padding-left: 24px;
-            }
-
-            .changelog {
-                padding-left: 16px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 16px;
-            }
-
-            .navbar {
-                flex-direction: column;
-                gap: 12px;
-                padding: 16px;
-            }
-
-            .navbar-right {
-                width: 100%;
-                justify-content: center;
-                gap: 16px;
-            }
-
-            .content-container {
-                padding: 20px 16px;
-            }
-
-            .changelog {
-                padding-left: 12px;
-            }
-        }
+    .navbar-greeting {
+        display: none; /* 小屏幕隐藏问候语，避免挤压按钮 */
+    }
+}
     </style>
 </head>
 <body>
     <!-- 导航栏 - 包含返回按钮 -->
     <nav class="navbar">
-        <div class="navbar-left">Winter to Spring</div>
-        <div class="navbar-right">
-            <div class="greeting">Hi, XMQ.</div>
-            <a href="WintertoSpring2026.html" class="back-button" onclick="event.preventDefault()">返回主页</a>
-        </div>
-    </nav>
+    <!-- 左侧标题 -->
+    <div class="navbar-left">Winter to Spring</div>
+    <!-- 右侧内容区（使用flex布局自动填充剩余空间） -->
+    <div class="navbar-right">
+        <div class="navbar-greeting">Hi,XMQ.</div>
+        <button class="feedback-btn" onclick="window.open('https://v.wjx.cn/vm/h4wd2xR.aspx# ','_blank')">
+            问卷反馈
+        </button>
+    </div>
+</nav>
 
     <!-- 主体内容容器 -->
     <div class="content-container">
@@ -329,7 +323,7 @@
                 如有任何问题、建议或技术支持需求，请通过以下方式联系我们：
             </div>
             <div class="section-content" style="font-weight: 500; color: #2d7dd2;">
-                邮箱：1699313603@qq.com
+                邮箱：1600313803@qq.com
             </div>
         </div>
 
