@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winter to Spring - 年度总结</title>
+    <style>
+        /* 全局样式重置与基础设置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #23b767 0%, #ffd3ae 100%);
+            background-attachment: fixed;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #1a1a2e;
+        }
+
+        /* 导航栏样式 - 增强玻璃质感 */
+        .navbar {
+            width: 100%;
+            max-width: 1200px;
+            padding: 16px 24px;
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        .navbar-left {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d3748;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .greeting {
+            font-size: 18px;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        /* 返回主页按钮 - 嵌入导航栏，增强玻璃质感 */
+        .back-button {
+            padding: 10px 22px;
+            background: rgba(66, 153, 225, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(66, 153, 225, 0.4);
+            border-radius: 50px;
+            color: #2d7dd2;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(66, 153, 225, 0.1);
+        }
+
+        .back-button:hover {
+            background: rgba(66, 153, 225, 0.35);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.2);
+            border-color: rgba(66, 153, 225, 0.5);
+        }
+
+        .back-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(66, 153, 225, 0.15);
+        }
+
+        /* 主体内容区 - 增强玻璃质感 */
+        .content-container {
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 36px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        /* 内容区域 - 初始隐藏，滚动触发显示 */
+        .section {
+            margin-bottom: 48px;
+            opacity: 0;
+            transform: translateY(30px); /* 初始向下偏移 */
+            transition: opacity 0.8s ease, transform 0.8s ease; /* 平滑过渡 */
+        }
+
+        /* 滚动到视口时的激活状态 */
+        .section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 标题样式 */
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(66, 153, 225, 0.2);
+        }
+
+        /* 内容文本样式 */
+        .section-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #4a5568;
+            margin-bottom: 24px;
+        }
+
+        /* 淡入动画（仅用于导航栏和内容容器） */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 16px;
+                border-radius: 12px;
+            }
+
+            .navbar-left {
+                font-size: 18px;
+            }
+
+            .greeting {
+                font-size: 15px;
+            }
+
+            .back-button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+
+            .content-container {
+                padding: 24px;
+                border-radius: 16px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            .section-content {
+                font-size: 15px;
+                line-height: 1.7;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px;
+            }
+
+            .navbar-right {
+                width: 100%;
+                justify-content: center;
+                gap: 16px;
+            }
+
+            .content-container {
+                padding: 20px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 - 包含返回按钮 -->
+    <nav class="navbar">
+        <div class="navbar-left">Winter to Spring</div>
+        <div class="navbar-right">
+            <div class="greeting">Hi, XMQ.</div>
+            <a href="WintertoSpring2026.html" class="back-button" onclick="event.preventDefault()">返回主页</a>
+        </div>
+    </nav>
+
+    <!-- 主体内容容器 -->
+    <div class="content-container">
+        <!-- 信件内容区域 -->
+        <div class="section">
+            <h2 class="section-title">To 鲜米琴学姐</h2>
+            <div class="section-content">
+                时光翩跹，岁序将新。
+            </div>
+            <div class="section-content">
+                回望相识相知这四个月，有些话语，愿在此刻悄然呈上。
+            </div>
+            <div class="section-content">
+                初见，正如我在周记中所写，静伫于明暗交辉之处，惊鸿之影，皎若清光，言辞如岷山清泉淙淙，从容似望江楼修竹亭亭。让我在团秘和其他组织中抉持的绝大部分因素，是因为您的热情，如我所说，最开始加您好友只是为了凑热闹。您对团支书工作的认可和帮助成为了这个团支书加入团秘的最终动力。
+            </div>
+            <div class="section-content">
+                初识，您以一句“记得我”的细心，让被熊姐盘问的无可适从的我找到了归属——那是团秘一面的午后，在陌生的人群里，您笑着对我说您记得我。那个瞬间，我所有的不安仿佛都被轻轻接住。
+            </div>
+            <div class="section-content">
+                波折，您以一句“超喜欢你的”的真心，在我忐忑不安时给了我最大的肯定——那是第一次有人叫我乖乖，当我因错过二面而沮丧，是三位姐姐在安慰我时，说出这句话，像一股暖流，猛地撞碎了横亘在我心口的整面冰墙。
+            </div>
+            <div class="section-content">
+                但是，您却以一份觉得自己“太冲动”的亏欠之心，向我们道出珍重——您说看见我们改作业就觉得心疼，您说后悔自己的决定，担心给我们留下不好的回忆。正是您的真诚与不舍，让我们深深确信，我们遇到的不仅是一位学姐，更是一个真心待我们好的人。
+            </div>
+            <div class="section-content">
+                现在，您以“没事的乖乖”“习惯就好”的耐心，安放了我无所安放的倾诉——在我们班、学习和原神是几乎占据了所有话题，可惜我都听不懂。当然我所写下的这些，也如我之前所跟您说过的任何一件事一样。明月孤悬，无人与共。而您是唯一一个听我把话说完了的人。我爸妈永远无法理解我的很多行为，用他们四十年前的观点。虽然我比您小了将近两岁，但至少，不会把所有事情都归结于我的问题。
+            </div>
+            <div class="section-content">
+                而当2026年轻叩门扉，我期盼那将是温柔与美好更为丰盈的一年——愿你的前路晨光熹微，每一步都踏实而坚定；愿时光将你的真诚酿成岁月的醇酒，予你以丰厚的回响；你是我在石室遇见的第一个引路人，也是我小心翼翼想要珍藏的、如诗般的风景。
+            </div>
+            <div class="section-content">
+                一岁一礼，一寸欢喜，愿你每一天都如诗般美好，都如你待人的方式一般——温柔有光，从容有岸。2026，新年快乐！
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 平滑滚动效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // 滚动触发淡入逻辑
+        function checkVisibility() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                // 当元素顶部进入视口80%时激活（可调整触发阈值）
+                if (sectionTop < windowHeight * 0.8) {
+                    section.classList.add('active');
+                }
+            });
+        }
+
+        // 初始加载时检查一次（显示首屏内容）
+        window.addEventListener('load', checkVisibility);
+        // 滚动时持续检查
+        window.addEventListener('scroll', checkVisibility);
+        // 窗口 resize 时重新检查
+        window.addEventListener('resize', checkVisibility);
+    </script>
+    <!-- 页脚 -->
+    <footer style="width: 100%; max-width: 1200px; margin-top: 60px; padding: 24px; text-align: center; color: #4a5568; font-size: 14px; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.3);">
+        <p>时间，总会给出最好的答案。</p>
+        <p>© 2026 Winter to Spring2026 Personal Practice Project All rights reserved. Under MIT.</p>
+    </footer>
+</body>
+</html>

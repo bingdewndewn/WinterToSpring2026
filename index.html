@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Winter to Spring</title>
+  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  <!-- 引入Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- 配置Tailwind -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF', // 主色调：蓝色
+          },
+          fontFamily: {
+            inter: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .bg-overlay {
+        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
+      }
+      .btn-hover {
+        @apply transform transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95;
+      }
+    }
+  </style>
+</head>
+<body class="font-inter text-white min-h-screen overflow-hidden">
+  <!-- 主容器 -->
+  <div class="relative w-full h-screen flex items-center justify-center">
+    <!-- 背景图片 -->
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-overlay z-10"></div>
+      <img src="./background.jpeg" alt="" class="w-full h-full object-cover">
+    </div>
+    
+    <!-- 内容区域 -->
+    <div class="relative z-20 text-center px-4 sm:px-6 lg:px-8">
+      <!-- 标题 -->
+      <h1 class="text-[clamp(2rem,5vw,4rem)] font-bold mb-8 tracking-tight opacity-0 animate-[fadeIn_1s_ease-in-out_forwards]">
+        Welcome to Winter to Sprng.
+      </h1>
+      
+      <!-- 按钮 -->
+      <a href="login.html" class="inline-block bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-full btn-hover opacity-0 animate-[fadeIn_1s_ease-in-out_0.3s_forwards]">
+        Begin to explore
+        <i class="fa fa-arrow-right ml-2"></i>
+      </a>
+      <a href="MIT.html" class="inline-block bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-full btn-hover opacity-0 animate-[fadeIn_1s_ease-in-out_0.3s_forwards]">
+        MIT许可证
+        <i class="fa fa-arrow-right ml-2"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- 动画样式 -->
+  <style>
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</body>
+
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winter to Spring - 项目介绍</title>
+    <style>
+        /* 全局样式重置与基础设置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #23b767 0%, #ffd3ae 100%);
+            background-attachment: fixed;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #1a1a2e;
+        }
+
+        /* 导航栏样式 - 增强玻璃质感 */
+        .navbar {
+            width: 100%;
+            max-width: 1200px;
+            padding: 16px 24px;
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        .navbar-left {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d3748;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .greeting {
+            font-size: 18px;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        /* 返回主页按钮 - 嵌入导航栏，增强玻璃质感 */
+        .back-button {
+            padding: 10px 22px;
+            background: rgba(66, 153, 225, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(66, 153, 225, 0.4);
+            border-radius: 50px;
+            color: #2d7dd2;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(66, 153, 225, 0.1);
+        }
+
+        .back-button:hover {
+            background: rgba(66, 153, 225, 0.35);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.2);
+            border-color: rgba(66, 153, 225, 0.5);
+        }
+
+        .back-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(66, 153, 225, 0.15);
+        }
+
+        /* 主体内容区 - 增强玻璃质感 */
+        .content-container {
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 36px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        /* 内容区域 - 初始隐藏，滚动触发显示 */
+        .section {
+            margin-bottom: 48px;
+            opacity: 0;
+            transform: translateY(30px); /* 初始向下偏移 */
+            transition: opacity 0.8s ease, transform 0.8s ease; /* 平滑过渡 */
+        }
+
+        /* 滚动到视口时的激活状态 */
+        .section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 标题样式 */
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(66, 153, 225, 0.2);
+        }
+
+        /* 内容文本样式 */
+        .section-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #4a5568;
+            margin-bottom: 24px;
+        }
+
+        /* 特性列表样式 */
+        .features-list {
+            list-style-type: none;
+            margin: 20px 0;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            padding-left: 32px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .features-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #2d7dd2;
+            font-size: 24px;
+            line-height: 1;
+            top: 8px;
+        }
+
+        /* 更新日志样式 */
+        .changelog {
+            margin: 20px 0;
+            border-left: 3px solid rgba(66, 153, 225, 0.3);
+            padding-left: 20px;
+        }
+
+        .changelog-item {
+            padding: 12px 0;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.05);
+        }
+
+        .changelog-item:last-child {
+            border-bottom: none;
+        }
+
+        .version {
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        /* 淡入动画（仅用于导航栏和内容容器） */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 移动端适配优化 */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 16px;
+                border-radius: 12px;
+            }
+
+            .navbar-left {
+                font-size: 18px;
+            }
+
+            .greeting {
+                font-size: 15px;
+            }
+
+            .back-button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+
+            .content-container {
+                padding: 24px;
+                border-radius: 16px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            .section-content {
+                font-size: 15px;
+                line-height: 1.7;
+            }
+
+            .features-list li {
+                padding-left: 24px;
+            }
+
+            .changelog {
+                padding-left: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px;
+            }
+
+            .navbar-right {
+                width: 100%;
+                justify-content: center;
+                gap: 16px;
+            }
+
+            .content-container {
+                padding: 20px 16px;
+            }
+
+            .changelog {
+                padding-left: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 - 包含返回按钮 -->
+    <nav class="navbar">
+        <div class="navbar-left">Winter to Spring</div>
+        <div class="navbar-right">
+            <div class="greeting">Hi, XMQ.</div>
+            <a href="WintertoSpring2026.html" class="back-button" onclick="event.preventDefault()">返回主页</a>
+        </div>
+    </nav>
+
+    <!-- 主体内容容器 -->
+    <div class="content-container">
+        <!-- 项目简介 -->
+        <div class="section">
+            <h2 class="section-title">📝 项目简介</h2>
+            <div class="section-content">
+                本项目于2023年9月立项，2024年发布1.0.0版本，2026年版本从2025年12月4日开始开发。项目旨在展示个人年度大事记，并在新年之际向特定的人传递心声与祝福。
+            </div>
+            <div class="section-content">
+                This project was initiated in September 2023, with version 1.0.0 released in 2024. The 2026 version started development on December 4, 2025, aiming to showcase personal annual key events and convey heartfelt messages to specific individuals on the occasion of the New Year.
+            </div>
+        </div>
+
+        <!-- 功能特性 -->
+        <div class="section">
+            <h2 class="section-title">🌟 功能特性</h2>
+            <h3 style="margin: 16px 0 8px; color: #4a5568;">中文特性</h3>
+            <ul class="features-list">
+                <li>响应式设计，完美支持移动端设备浏览</li>
+                <li>简洁美观的UI界面，注重用户体验</li>
+                <li>纯静态页面实现，无需后端支持，部署便捷</li>
+                <li>融合Windows 11圆角设计和iOS 26玻璃质感设计元素</li>
+            </ul>
+            
+            <h3 style="margin: 16px 0 8px; color: #4a5568;">Features</h3>
+            <ul class="features-list">
+                <li>Responsive design with optimal mobile device support</li>
+                <li>Clean and aesthetically pleasing UI interface with focus on user experience</li>
+                <li>Pure static page implementation, no backend support required for easy deployment</li>
+                <li>Integrates Windows 11 rounded corner design and iOS 26 glass texture design elements</li>
+            </ul>
+        </div>
+
+        <!-- 许可证信息 -->
+        <div class="section">
+            <h2 class="section-title">📜 许可证</h2>
+            <div class="section-content">
+                本项目采用麻省理工学院许可证（MIT License）授权。这意味着您可以自由地使用、复制、修改、合并、发布、分发、再许可和/或销售本软件的副本，只要在软件和软件的所有副本中保留原始版权声明和许可声明。
+            </div>
+            <div class="section-content">
+                This project is licensed under the MIT License. This permits you to freely use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, provided that the original copyright notice and permission notice are retained in all copies or substantial portions of the Software.
+            </div>
+        </div>
+
+        <!-- 技术支持 -->
+        <div class="section">
+            <h2 class="section-title">🛠️ 技术支持</h2>
+            <div class="section-content">
+                如有任何问题、建议或技术支持需求，请通过以下方式联系我们：
+            </div>
+            <div class="section-content" style="font-weight: 500; color: #2d7dd2;">
+                邮箱：1699313603@qq.com
+            </div>
+        </div>
+
+        <!-- 更新日志 -->
+        <div class="section">
+            <h2 class="section-title">📅 更新日志</h2>
+            <div class="changelog">
+                <div class="changelog-item">
+                    <div class="version">v3.0.0 (2026-01-01) - Winter to Spring 2026</div>
+                    <div>2026年度版本，全新设计与功能升级</div>
+                </div>
+                <div class="changelog-item">
+                    <div class="version">v2.0.0 (2025-01-01) - Winter to Spring 2025</div>
+                    <div>2025年度版本，界面优化与功能扩展</div>
+                </div>
+                <div class="changelog-item">
+                    <div class="version">v1.0.0 (2024-01-01) - Winter to Spring 2024</div>
+                    <div>初始版本发布，基础功能实现</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 平滑滚动效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // 滚动触发淡入逻辑 - 保持原有功能
+        function checkVisibility() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                // 当元素顶部进入视口80%时激活
+                if (sectionTop < windowHeight * 0.8) {
+                    section.classList.add('active');
+                }
+            });
+        }
+
+        // 初始加载时检查一次
+        window.addEventListener('load', checkVisibility);
+        // 滚动时持续检查
+        window.addEventListener('scroll', checkVisibility);
+        // 窗口 resize 时重新检查
+        window.addEventListener('resize', checkVisibility);
+    </script>
+    <!-- 页脚 -->
+    <footer style="width: 100%; max-width: 1200px; margin-top: 60px; padding: 24px; text-align: center; color: #4a5568; font-size: 14px; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.3);">
+        <p>时间，总会给出最好的答案。</p>
+        <p>© 2026 Winter to Spring2026 Personal Practice Project All rights reserved. Under MIT.</p>
+    </footer>
+</body>
+</html>
