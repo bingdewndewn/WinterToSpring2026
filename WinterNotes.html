@@ -66,7 +66,7 @@
     white-space: nowrap; /* 避免文字换行导致布局错乱 */
 }
 
-/* 问卷按钮样式（保持原有交互） */
+/* 问卷按钮样式（保持原有交互，增强阻尼感） */
 .feedback-btn {
     padding: 12px 24px;
     border-radius: 30px;
@@ -77,7 +77,8 @@
     color: #374151;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* 阻尼感过渡曲线 */
+    transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
     box-shadow: 0 6px 20px rgba(156, 163, 175, 0.2),
                 inset 0 2px 4px rgba(255, 255, 255, 0.5);
     font-size: 16px;
@@ -115,7 +116,9 @@
 }
 
 .feedback-btn:active {
+    /* 阻尼感回弹效果 */
     transform: translateY(-1px);
+    transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     box-shadow: 0 4px 16px rgba(156, 163, 175, 0.2),
                 inset 0 1px 3px rgba(255, 255, 255, 0.5);
 }
@@ -167,6 +170,90 @@
             line-height: 1.8;
             color: #4a5568;
             margin-bottom: 24px;
+        }
+
+        /* 新增的秘密区域样式 */
+        .secret-section {
+            margin-bottom: 24px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #0045d0 0%, #dcb4ff 100%);
+            padding: 30px;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            /* 容器整体阻尼过渡 */
+            transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        /* 秘密区域提示部分（标题+按钮） */
+        .secret-prompt {
+            max-height: 500px;
+            opacity: 1;
+            /* 阻尼感过渡，控制隐藏/显示动画 */
+            transition: max-height 0.6s cubic-bezier(0.645, 0.045, 0.355, 1), 
+                        opacity 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+            overflow: hidden;
+        }
+
+        /* 提示部分隐藏状态 */
+        .secret-prompt.hidden {
+            max-height: 0;
+            opacity: 0;
+            margin-bottom: -20px;
+        }
+
+        .secret-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .secret-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 24px;
+        }
+
+        .secret-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* 秘密内容区域（增强层次感） */
+        .secret-content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            color: #333;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 0 24px;
+            border-radius: 12px;
+            /* 层次感核心：阴影+轻微悬浮+阻尼过渡 */
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            position: relative;
+            z-index: 1;
+            transform: translateY(10px);
+            transition: max-height 0.8s cubic-bezier(0.645, 0.045, 0.355, 1), 
+                        opacity 0.6s cubic-bezier(0.645, 0.045, 0.355, 1),
+                        padding 0.6s cubic-bezier(0.645, 0.045, 0.355, 1),
+                        transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        /* 秘密内容显示状态 */
+        .secret-content.show {
+            max-height: 3000px; /* 足够大的高度容纳内容 */
+            opacity: 1;
+            padding: 24px;
+            transform: translateY(0);
+            margin-top: 16px; /* 与上方提示区域拉开距离，增强层次 */
+        }
+
+        /* 秘密区域跳过状态 */
+        .secret-section.skip {
+            max-height: 0;
+            opacity: 0;
+            margin-bottom: -24px;
         }
 
         /* 淡入动画（仅用于导航栏和内容容器） */
@@ -236,6 +323,35 @@
             .content-container {
                 padding: 20px 16px;
             }
+
+            /* 移动端秘密区域适配 */
+            .secret-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .secret-section {
+                padding: 20px 16px;
+            }
+            
+            .secret-title {
+                font-size: 18px;
+            }
+            
+            .secret-subtitle {
+                font-size: 14px;
+            }
+
+            .secret-section .feedback-btn {
+                width: 100%;
+            }
+
+            /* 移动端内容层次感优化 */
+            .secret-content.show {
+                margin-top: 12px;
+                padding: 20px;
+                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+            }
         }
     </style>
 </head>
@@ -264,21 +380,36 @@
             <div class="section-content">
                 回望相识相知这四个月，有些话语，愿在此刻悄然呈上。
             </div>
-            <div class="section-content">
-                初见，正如我在周记中所写，静伫于明暗交辉之处，惊鸿之影，皎若清光，言辞如岷山清泉淙淙，从容似望江楼修竹亭亭。让我在团秘和其他组织中抉持的绝大部分因素，是因为您的热情，如我所说，最开始加您好友只是为了凑热闹。您对团支书工作的认可和帮助成为了这个团支书加入团秘的最终动力。
+            
+            <!-- 新增的交互区域（修改类名适配动画） -->
+            <div id="secretContainer" class="secret-section">
+                <div id="secretPrompt" class="secret-prompt">
+                    <div class="secret-title">不知道有些话当讲不当讲</div>
+                    <div class="secret-subtitle">现在回望未免太早了</div>
+                    <div class="secret-buttons">
+                        <button class="feedback-btn" onclick="showSecretContent()">立即查看</button>
+                        <button class="feedback-btn" onclick="skipSecretContent()">暂时跳过</button>
+                    </div>
+                </div>
+                <div id="secretContent" class="secret-content">
+                    <div class="section-content">
+                        初见，正如我在周记中所写，静伫于明暗交辉之处，惊鸿之影，皎若清光，言辞如岷山清泉淙淙，从容似望江楼修竹亭亭。让我在团秘和其他组织中抉持的绝大部分因素，是因为您的热情，如我所说，最开始加您好友只是为了凑热闹。您对团支书工作的认可和帮助成为了这个团支书加入团秘的最终动力。
+                    </div>
+                    <div class="section-content">
+                        初识，您以一句“记得我”的细心，让被熊姐盘问的无可适从的我找到了归属——那是团秘一面的午后，在陌生的人群里，您笑着对我说您记得我。那个瞬间，我所有的不安仿佛都被轻轻接住。
+                    </div>
+                    <div class="section-content">
+                        波折，您以一句“超喜欢你的”的真心，在我忐忑不安时给了我最大的肯定——那是第一次有人叫我乖乖，当我因错过二面而沮丧，是三位姐姐在安慰我时，说出这句话，像一股暖流，猛地撞碎了横亘在我心口的整面冰墙。
+                    </div>
+                    <div class="section-content">
+                        但是，您却以一份觉得自己“太冲动”的亏欠之心，向我们道出珍重——您说看见我们改作业就觉得心疼，您说后悔自己的决定，担心给我们留下不好的回忆。正是您的真诚与不舍，让我们深深确信，我们遇到的不仅是一位学姐，更是一个真心待我们好的人。
+                    </div>
+                    <div class="section-content">
+                        现在，您以“没事的乖乖”“习惯就好”的耐心，安放了我无所安放的倾诉——在我们班、学习和原神是几乎占据了所有话题，可惜我都听不懂。当然我所写下的这些，也如我之前所跟您说过的任何一件事一样。明月孤悬，无人与共。而您是唯一一个听我把话说完了的人。我爸妈永远无法理解我的很多行为，用他们四十年前的观点。虽然我比您小了将近两岁，但至少，不会把所有事情都归结于我的问题。
+                    </div>
+                </div>
             </div>
-            <div class="section-content">
-                初识，您以一句“记得我”的细心，让被熊姐盘问的无可适从的我找到了归属——那是团秘一面的午后，在陌生的人群里，您笑着对我说您记得我。那个瞬间，我所有的不安仿佛都被轻轻接住。
-            </div>
-            <div class="section-content">
-                波折，您以一句“超喜欢你的”的真心，在我忐忑不安时给了我最大的肯定——那是第一次有人叫我乖乖，当我因错过二面而沮丧，是三位姐姐在安慰我时，说出这句话，像一股暖流，猛地撞碎了横亘在我心口的整面冰墙。
-            </div>
-            <div class="section-content">
-                但是，您却以一份觉得自己“太冲动”的亏欠之心，向我们道出珍重——您说看见我们改作业就觉得心疼，您说后悔自己的决定，担心给我们留下不好的回忆。正是您的真诚与不舍，让我们深深确信，我们遇到的不仅是一位学姐，更是一个真心待我们好的人。
-            </div>
-            <div class="section-content">
-                现在，您以“没事的乖乖”“习惯就好”的耐心，安放了我无所安放的倾诉——在我们班、学习和原神是几乎占据了所有话题，可惜我都听不懂。当然我所写下的这些，也如我之前所跟您说过的任何一件事一样。明月孤悬，无人与共。而您是唯一一个听我把话说完了的人。我爸妈永远无法理解我的很多行为，用他们四十年前的观点。虽然我比您小了将近两岁，但至少，不会把所有事情都归结于我的问题。
-            </div>
+            
             <div class="section-content">
                 而当2026年轻叩门扉，我期盼那将是温柔与美好更为丰盈的一年——愿你的前路晨光熹微，每一步都踏实而坚定；愿时光将你的真诚酿成岁月的醇酒，予你以丰厚的回响；你是我在石室遇见的第一个引路人，也是我小心翼翼想要珍藏的、如诗般的风景。
             </div>
@@ -310,6 +441,25 @@
                     section.classList.add('active');
                 }
             });
+        }
+
+        // 显示隐藏的内容（带阻尼动画+层次感）
+        function showSecretContent() {
+            const promptEl = document.getElementById('secretPrompt');
+            const contentEl = document.getElementById('secretContent');
+            
+            // 添加类触发动画
+            promptEl.classList.add('hidden');
+            // 延迟一点触发内容显示，增强阻尼节奏感
+            setTimeout(() => {
+                contentEl.classList.add('show');
+            }, 300);
+        }
+
+        // 跳过隐藏的内容（带阻尼动画）
+        function skipSecretContent() {
+            const containerEl = document.getElementById('secretContainer');
+            containerEl.classList.add('skip');
         }
 
         // 初始加载时检查一次（显示首屏内容）
