@@ -1,86 +1,554 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Winter to Spring</title>
-  <link rel="icon" href="./favicon.ico" type="image/x-icon">
-  <!-- 引入Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- 引入Font Awesome -->
-  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  
-  <!-- 配置Tailwind -->
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#165DFF', // 主色调：蓝色
-          },
-          fontFamily: {
-            inter: ['Inter', 'system-ui', 'sans-serif'],
-          },
-        },
-      }
-    }
-  </script>
-  
-  <style type="text/tailwindcss">
-    @layer utilities {
-      .content-auto {
-        content-visibility: auto;
-      }
-      .bg-overlay {
-        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
-      }
-      .btn-hover {
-        @apply transform transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winter to Spring 2026</title>
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #4435aa 0%, #d9d3f7 100%);
+            background-attachment: fixed;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        /* 导航栏样式 - 强化玻璃质感+整合问卷按钮 */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-radius: 24px;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            position: relative;
+            z-index: 100;
+            margin-bottom: 40px;
+        }
+        .navbar-left {
+            font-size: 22px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        /* 问卷反馈按钮 - 强化玻璃质感（模拟玻璃素材效果） */
+        .feedback-btn {
+            padding: 12px 24px;
+            border-radius: 30px;
+            background-color: rgba(209, 213, 219, 0.35);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.85);
+            color: #374151;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 6px 20px rgba(156, 163, 175, 0.2),
+                        inset 0 2px 4px rgba(255, 255, 255, 0.5);
+            font-size: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        .feedback-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.3) 0%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: glassShine 3s infinite linear;
+        }
+        @keyframes glassShine {
+            0% { transform: rotate(30deg) translateX(-100%); }
+            100% { transform: rotate(30deg) translateX(100%); }
+        }
+        .feedback-btn:hover {
+            background-color: rgba(209, 213, 219, 0.45);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(156, 163, 175, 0.25),
+                        inset 0 2px 6px rgba(255, 255, 255, 0.6);
+        }
+        .feedback-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(156, 163, 175, 0.2),
+                        inset 0 1px 3px rgba(255, 255, 255, 0.5);
+        }
+        /* 功能模块容器 - 竖列布局 */
+        .modules-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 35px;
+            position: relative;
+            z-index: 60;
+            max-width: 600px;
+            margin: 0 auto;
+            transition: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1); /* 阻尼动画 */
+        }
+        /* 模块样式 - hover放大效果+页面加载淡入 */
+        .module {
+            border-radius: 28px;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 10px 36px rgba(31, 38, 135, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+            padding: 30px;
+            text-align: center;
+        }
+        .module:nth-child(1) { animation-delay: 0.1s; background: linear-gradient(135deg, #01cf87 0%, #dab4ff 100%); }
+        .module:nth-child(2) { animation-delay: 0.2s; background: linear-gradient(135deg, #1504d0 0%, #13fdf6 100%); }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .module:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 18px 45px rgba(31, 38, 135, 0.25);
+        }
+        /* 模块内容区域 */
+        .module-content {
+            padding: 15px 0;
+        }
+        .module-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+        .module-subtitle {
+            font-size: 18px;
+            color: #4a5568;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+        /* 密钥验证区域 */
+        .key-verify-module {
+            border-radius: 28px;
+            background: linear-gradient(135deg, #4458bc 0%, #fcc5c5 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 10px 36px rgba(31, 38, 135, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1); /* 阻尼感动画 */
+            opacity: 0;
+            transform: translateY(50px) scale(0.95);
+            padding: 35px;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 35px;
+            display: none;
+        }
+        .key-verify-module.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            display: block;
+        }
+        .verify-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        .verify-desc {
+            font-size: 16px;
+            color: #4a5568;
+            margin-bottom: 25px;
+        }
+        .key-input-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .key-input {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.85);
+            background-color: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            font-size: 16px;
+            color: #1a202c; /* 加深文字颜色，提高对比度 */
+            font-weight: 500; /* 增加字重，更清晰 */
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .key-input:focus {
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.3);
+            border-color: rgba(66, 153, 225, 0.5);
+        }
+        /* 输入抖动动画 */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-10px); }
+            40% { transform: translateX(10px); }
+            60% { transform: translateX(-5px); }
+            80% { transform: translateX(5px); }
+        }
+        .key-input.shake {
+            animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+            border-color: #4435aa;
+        }
+        /* 占位符样式调整，提高可读性 */
+        .key-input::placeholder {
+            color: #2d3748; /* 加深占位符颜色 */
+            font-weight: 400;
+            opacity: 0.8; /* 提高占位符透明度 */
+        }
+        /* 成功动画 - 活力渐变色圆+动态勾 */
+        .success-circle {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(255, 107, 107, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            animation: circleExpand 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+        }
+        @keyframes circleExpand {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            80% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+        .success-check {
+            width: 70px;
+            height: 70px;
+            stroke: #ffffff;
+            stroke-width: 4;
+            fill: none;
+            stroke-dasharray: 90;
+            stroke-dashoffset: 90;
+            animation: checkDraw 0.8s ease forwards 0.5s;
+        }
+        @keyframes checkDraw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        /* 通知弹窗 */
+        .notification-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 15px 40px rgba(31, 38, 135, 0.2);
+            padding: 30px;
+            max-width: 90%;
+            width: 450px;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+        }
+        .notification-modal.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: auto;
+        }
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        .modal-key-display {
+            font-size: 18px;
+            color: #4435aa;
+            font-weight: 500;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        .modal-key-highlight {
+            color: #01cf87;
+            font-weight: 700;
+        }
+        .modal-content {
+            font-size: 16px;
+            color: #4a5568;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        /* 密钥显示动画相关 */
+        .key-char {
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .key-char.fade-out {
+            opacity: 0.2;
+            transform: scale(0.8);
+        }
+        /* 动画类 */
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .slide-in {
+            animation: slideIn 0.6s ease forwards;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 14px 18px;
+                margin-bottom: 30px;
+            }
+            .navbar-left { font-size: 18px; }
+            .feedback-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            .modules-container {
+                gap: 25px;
+                max-width: 100%;
+            }
+            .module {
+                padding: 25px;
+                &:hover {
+                    transform: translateY(-4px) scale(1.02);
+                }
+            }
+            .module-title { font-size: 22px; }
+            .module-subtitle { font-size: 16px; }
+            .key-verify-module {
+                padding: 25px;
+            }
+            .key-input {
+                padding: 14px 18px;
+                font-size: 15px;
+                color: #1a202c;
+            }
+            .notification-modal {
+                padding: 25px;
+            }
+            .modal-title { font-size: 18px; }
+            .modal-content { font-size: 15px; }
+            .modal-key-display { font-size: 16px; }
+            .key-input::placeholder {
+                color: #2d3748;
+                opacity: 0.8;
+            }
+            .success-circle {
+                width: 110px;
+                height: 110px;
+            }
+            .success-check {
+                width: 55px;
+                height: 55px;
+            }
+        }
+        /* 小屏幕移动端适配 */
+        @media (max-width: 480px) {
+            .navbar-right {
+                gap: 12px;
+            }
+            .module {
+                padding: 20px;
+            }
+            .module-title { font-size: 20px; }
+            .module-subtitle { font-size: 15px; margin-bottom: 25px; }
+            .feedback-btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+            .key-verify-module {
+                padding: 20px;
+            }
+            .verify-title { font-size: 20px; }
+            .verify-desc { font-size: 15px; }
+            .modal-key-display {
+                font-size: 14px;
+                letter-spacing: 0;
+            }
+        }
+    </style>
 </head>
-<body class="font-inter text-white min-h-screen overflow-hidden">
-  <!-- 主容器 -->
-  <div class="relative w-full h-screen flex items-center justify-center">
-    <!-- 背景图片 -->
-    <div class="absolute inset-0 z-0">
-      <div class="absolute inset-0 bg-overlay z-10"></div>
-      <img src="./background.jpeg" alt="" class="w-full h-full object-cover">
-    </div>
-    
-    <!-- 内容区域 -->
-    <div class="relative z-20 text-center px-4 sm:px-6 lg:px-8">
-      <!-- 标题 -->
-      <h1 class="text-[clamp(2rem,5vw,4rem)] font-bold mb-8 tracking-tight opacity-0 animate-[fadeIn_1s_ease-in-out_forwards]">
-        Welcome to Winter to Sprng.
-      </h1>
-      
-      <!-- 按钮 -->
-      <a href="login.html" class="inline-block bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-full btn-hover opacity-0 animate-[fadeIn_1s_ease-in-out_0.3s_forwards]">
-        Begin to explore
-        <i class="fa fa-arrow-right ml-2"></i>
-      </a>
-      <a href="MIT.html" class="inline-block bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-full btn-hover opacity-0 animate-[fadeIn_1s_ease-in-out_0.3s_forwards]">
-        MIT许可证
-        <i class="fa fa-arrow-right ml-2"></i>
-      </a>
-    </div>
-  </div>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="navbar-left">Winter to Spring</div>
+        <div class="navbar-right">
+            <button class="feedback-btn" onclick="window.open('https://v.wjx.cn/vm/h4wd2xR.aspx# ','_blank')">
+                问卷反馈
+            </button>
+        </div>
+    </nav>
 
-  <!-- 动画样式 -->
-  <style>
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+    <!-- 密钥验证区域（默认隐藏） -->
+    <div class="key-verify-module" id="keyVerifyModule">
+        <h3 class="verify-title">密钥验证</h3>
+        <p class="verify-desc">请输入30位密钥（仅允许大写字母和数字）</p>
+        <div class="key-input-container">
+            <input type="text" class="key-input" id="keyInput" placeholder="请删去“-”后再输入" maxlength="30" oninput="validateInput(this)">
+        </div>
+        <button class="feedback-btn" onclick="verifyKey()">验证密钥</button>
+    </div>
+
+    <!-- 功能模块容器 -->
+    <div class="modules-container" id="mainModules">
+        <!-- 模块1：轻启时光信笺 -->
+        <div class="module">
+            <div class="module-content">
+                <h3 class="module-title">轻启时光信笺</h3>
+                <p class="module-subtitle">欢迎访问Winter to Spring2026</p>
+                <button class="feedback-btn" onclick="showKeyVerify()">验证通行密钥</button>
+            </div>
+        </div>
+        <!-- 模块2：使用麻省理工学院许可证 -->
+        <div class="module">
+            <div class="module-content">
+                <h3 class="module-title">使用麻省理工学院许可证</h3>
+                <p class="module-subtitle">Under MIT.</p>
+                <button class="feedback-btn" onclick="window.open('MIT.html','_blank')">查看许可证</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 成功动画 - 活力渐变色圆+动态勾 -->
+    <div class="success-circle" id="successCircle" style="display: none;">
+        <svg class="success-check" viewBox="0 0 24 24">
+            <path d="M20 6L9 17L4 12" />
+        </svg>
+    </div>
+
+    <!-- 通知弹窗 -->
+    <div class="notification-modal" id="notificationModal">
+        <h3 class="modal-title" id="modalTitle">Hi,鲜米琴</h3>
+        <p class="modal-content">鲜姐好！密钥验证成功，点击确定以使用 用户模式-类型4 访问</p>
+        <button class="feedback-btn" onclick="window.open('WintertoSpring2026.html','_blank')">确定</button>
+    </div>
+
+    <script>
+        const keyInput = document.getElementById('keyInput');
+        const successCircle = document.getElementById('successCircle');
+        const notificationModal = document.getElementById('notificationModal');
+        const correctKey = 'CDA8U3N9F7SS202627AXMQT8UAUGQ6';
+
+        // 验证输入内容（仅允许大写字母和数字，非法字符自动删除并抖动）
+        function validateInput(input) {
+            const originalValue = input.value;
+            const filteredValue = originalValue.replace(/[^A-Z0-9]/g, '');
+            
+            // 只有输入了非法字符（过滤前后值不同）才触发抖动
+            if (originalValue !== filteredValue && originalValue.length > 0) {
+                input.classList.add('shake');
+                
+                // 移除抖动类（避免重复触发时动画失效）
+                setTimeout(() => {
+                    input.classList.remove('shake');
+                }, 500);
+            }
+            
+            input.value = filteredValue;
+        }
+
+        // 显示密钥验证区域，隐藏主模块（带阻尼动画）
+        function showKeyVerify() {
+            const verifyModule = document.getElementById('keyVerifyModule');
+            const mainModules = document.getElementById('mainModules');
+            
+            verifyModule.classList.add('active');
+            // 主模块淡出动画
+            mainModules.style.opacity = 0;
+            mainModules.style.transform = 'translateY(30px) scale(0.98)';
+            
+            // 延迟隐藏避免布局跳动
+            setTimeout(() => {
+                mainModules.style.display = 'none';
+            }, 600);
+        }
+
+        // 验证密钥
+        function verifyKey() {
+            const inputKey = document.getElementById('keyInput').value.trim();
+            
+            if (inputKey === correctKey) {
+                const verifyModule = document.getElementById('keyVerifyModule');
+                // 验证区域淡出动画
+                verifyModule.style.opacity = 0;
+                verifyModule.style.transform = 'translateY(30px) scale(0.95)';
+                
+                setTimeout(() => {
+                    verifyModule.style.display = 'none';
+                    
+                    // 显示成功动画（活力圆+动态勾）
+                    successCircle.style.display = 'flex';
+                    
+                    // 1.8秒后隐藏成功动画，显示通知弹窗
+                    setTimeout(() => {
+                        // 成功动画淡出
+                        successCircle.style.opacity = 0;
+                        successCircle.style.transform = 'translate(-50%, -50%) scale(0.8)';
+                        
+                        setTimeout(() => {
+                            successCircle.style.display = 'none';
+                            // 显示弹窗
+                            notificationModal.classList.add('active');
+                        }, 300);
+                    }, 1800);
+                }, 600);
+            } else {
+                // 密钥错误时添加抖动提示
+                keyInput.classList.add('shake');
+                setTimeout(() => {
+                    keyInput.classList.remove('shake');
+                }, 500);
+                
+                keyInput.value = '';
+                keyInput.focus();
+            }
+        }
+    </script>
+
+    <!-- 页脚 -->
+    <footer style="width: 100%; max-width: 1200px; margin-top: 60px; padding: 24px; text-align: center; color: #4a5568; font-size: 14px; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.3);">
+        <p>时间，总会给出最好的答案。</p>
+        <p>© 2026 Winter to Spring2026 Personal Practice Project All rights reserved. Under MIT.</p>
+    </footer>
 </body>
-
 </html>
