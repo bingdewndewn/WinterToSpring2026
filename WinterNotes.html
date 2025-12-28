@@ -25,103 +25,135 @@
             color: #1a1a2e;
         }
 
+        /* 新增弹窗样式 */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .popup-container {
+            width: 100%;
+            max-width: 800px;
+            background: linear-gradient(135deg, #4435aa 0%, #d9d3f7 100%);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .popup-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: white;
+            margin-bottom: 30px;
+        }
+
         /* 导航栏样式 - 强化玻璃质感+确保宽度撑满 */
-.navbar {
-    width: 100%; /* 关键：撑满父容器宽度 */
-    max-width: 1200px; /* 限制最大宽度，避免过宽 */
-    margin: 0 auto 40px; /* 居中显示，底部留白 */
-    padding: 16px 24px;
-    display: flex;
-    justify-content: space-between; /* 左右元素分散对齐 */
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 24px;
-    position: relative;
-    z-index: 100;
-}
+        .navbar {
+            width: 100%; /* 关键：撑满父容器宽度 */
+            max-width: 1200px; /* 限制最大宽度，避免过宽 */
+            margin: 0 auto 40px; /* 居中显示，底部留白 */
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between; /* 左右元素分散对齐 */
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 24px;
+            position: relative;
+            z-index: 100;
+        }
 
-/* 左侧标题样式（保持原有） */
-.navbar-left {
-    font-size: 22px;
-    font-weight: 600;
-    color: #2d3748;
-}
+        /* 左侧标题样式（保持原有） */
+        .navbar-left {
+            font-size: 22px;
+            font-weight: 600;
+            color: #2d3748;
+        }
 
-/* 右侧容器（确保内容右对齐且不挤压） */
-.navbar-right {
-    display: flex;
-    align-items: center;
-    gap: 20px; /* 元素间距，避免拥挤 */
-}
+        /* 右侧容器（确保内容右对齐且不挤压） */
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px; /* 元素间距，避免拥挤 */
+        }
 
-/* 问候语样式 */
-.navbar-greeting {
-    font-size: 20px;
-    font-weight: 500;
-    color: #4a5568;
-    white-space: nowrap; /* 避免文字换行导致布局错乱 */
-}
+        /* 问候语样式 */
+        .navbar-greeting {
+            font-size: 20px;
+            font-weight: 500;
+            color: #4a5568;
+            white-space: nowrap; /* 避免文字换行导致布局错乱 */
+        }
 
-/* 问卷按钮样式（保持原有交互，增强阻尼感） */
-.feedback-btn {
-    padding: 12px 24px;
-    border-radius: 30px;
-    background-color: rgba(209, 213, 219, 0.35);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(255, 255, 255, 0.85);
-    color: #374151;
-    font-weight: 500;
-    cursor: pointer;
-    /* 阻尼感过渡曲线 */
-    transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
-    box-shadow: 0 6px 20px rgba(156, 163, 175, 0.2),
-                inset 0 2px 4px rgba(255, 255, 255, 0.5);
-    font-size: 16px;
-    position: relative;
-    overflow: hidden;
-}
+        /* 问卷按钮样式（保持原有交互，增强阻尼感） */
+        .feedback-btn {
+            padding: 12px 24px;
+            border-radius: 30px;
+            background-color: rgba(209, 213, 219, 0.35);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.85);
+            color: #374151;
+            font-weight: 500;
+            cursor: pointer;
+            /* 阻尼感过渡曲线 */
+            transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+            box-shadow: 0 6px 20px rgba(156, 163, 175, 0.2),
+                        inset 0 2px 4px rgba(255, 255, 255, 0.5);
+            font-size: 16px;
+            position: relative;
+            overflow: hidden;
+        }
 
-/* 按钮动画（保持原有） */
-.feedback-btn::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-        to bottom right,
-        rgba(255, 255, 255, 0.3) 0%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    transform: rotate(30deg);
-    animation: glassShine 3s infinite linear;
-}
+        /* 按钮动画（保持原有） */
+        .feedback-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.3) 0%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: glassShine 3s infinite linear;
+        }
 
-@keyframes glassShine {
-    0% { transform: rotate(30deg) translateX(-100%); }
-    100% { transform: rotate(30deg) translateX(100%); }
-}
+        @keyframes glassShine {
+            0% { transform: rotate(30deg) translateX(-100%); }
+            100% { transform: rotate(30deg) translateX(100%); }
+        }
 
-.feedback-btn:hover {
-    background-color: rgba(209, 213, 219, 0.45);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(156, 163, 175, 0.25),
-                inset 0 2px 6px rgba(255, 255, 255, 0.6);
-}
+        .feedback-btn:hover {
+            background-color: rgba(209, 213, 219, 0.45);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(156, 163, 175, 0.25),
+                        inset 0 2px 6px rgba(255, 255, 255, 0.6);
+        }
 
-.feedback-btn:active {
-    /* 阻尼感回弹效果 */
-    transform: translateY(-1px);
-    transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-    box-shadow: 0 4px 16px rgba(156, 163, 175, 0.2),
-                inset 0 1px 3px rgba(255, 255, 255, 0.5);
-}
+        .feedback-btn:active {
+            /* 阻尼感回弹效果 */
+            transform: translateY(-1px);
+            transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+            box-shadow: 0 4px 16px rgba(156, 163, 175, 0.2),
+                        inset 0 1px 3px rgba(255, 255, 255, 0.5);
+        }
 
         /* 主体内容区 - 增强玻璃质感 */
         .content-container {
@@ -301,6 +333,16 @@
                 font-size: 15px;
                 line-height: 1.7;
             }
+
+            /* 弹窗移动端适配 */
+            .popup-container {
+                padding: 30px 20px;
+                border-radius: 18px;
+            }
+            
+            .popup-text {
+                font-size: 16px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -352,10 +394,33 @@
                 padding: 20px;
                 box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
             }
+
+            /* 弹窗移动端适配 */
+            .popup-container {
+                padding: 24px 16px;
+                border-radius: 16px;
+            }
+            
+            .popup-text {
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+            
+            .popup-container .feedback-btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- 新增弹窗 -->
+    <div id="popup" class="popup-overlay">
+        <div class="popup-container">
+            <p class="popup-text">我正尝试接受一个文字无法描摹的现实，尝试将一份美好憧憬永藏心底，让质朴留下一丝痕迹。如果有一天，你看破了这句话是什么意思，也请你不要说破。</p>
+            <button class="feedback-btn" onclick="document.getElementById('popup').style.display='none'">进入页面</button>
+        </div>
+    </div>
+
     <!-- 导航栏 - 包含返回按钮 -->
     <nav class="navbar">
     <!-- 左侧标题 -->
