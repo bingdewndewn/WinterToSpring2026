@@ -25,135 +25,103 @@
             color: #1a1a2e;
         }
 
-        /* 新增弹窗样式 */
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            padding: 20px;
-        }
-
-        .popup-container {
-            width: 100%;
-            max-width: 800px;
-            background: linear-gradient(135deg, #4435aa 0%, #d9d3f7 100%);
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
-
-        .popup-text {
-            font-size: 18px;
-            line-height: 1.8;
-            color: white;
-            margin-bottom: 30px;
-        }
-
         /* 导航栏样式 - 强化玻璃质感+确保宽度撑满 */
-        .navbar {
-            width: 100%; /* 关键：撑满父容器宽度 */
-            max-width: 1200px; /* 限制最大宽度，避免过宽 */
-            margin: 0 auto 40px; /* 居中显示，底部留白 */
-            padding: 16px 24px;
-            display: flex;
-            justify-content: space-between; /* 左右元素分散对齐 */
-            align-items: center;
-            background-color: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.7);
-            border-radius: 24px;
-            position: relative;
-            z-index: 100;
-        }
+.navbar {
+    width: 100%; /* 关键：撑满父容器宽度 */
+    max-width: 1200px; /* 限制最大宽度，避免过宽 */
+    margin: 0 auto 40px; /* 居中显示，底部留白 */
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between; /* 左右元素分散对齐 */
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 24px;
+    position: relative;
+    z-index: 100;
+}
 
-        /* 左侧标题样式（保持原有） */
-        .navbar-left {
-            font-size: 22px;
-            font-weight: 600;
-            color: #2d3748;
-        }
+/* 左侧标题样式（保持原有） */
+.navbar-left {
+    font-size: 22px;
+    font-weight: 600;
+    color: #2d3748;
+}
 
-        /* 右侧容器（确保内容右对齐且不挤压） */
-        .navbar-right {
-            display: flex;
-            align-items: center;
-            gap: 20px; /* 元素间距，避免拥挤 */
-        }
+/* 右侧容器（确保内容右对齐且不挤压） */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* 元素间距，避免拥挤 */
+}
 
-        /* 问候语样式 */
-        .navbar-greeting {
-            font-size: 20px;
-            font-weight: 500;
-            color: #4a5568;
-            white-space: nowrap; /* 避免文字换行导致布局错乱 */
-        }
+/* 问候语样式 */
+.navbar-greeting {
+    font-size: 20px;
+    font-weight: 500;
+    color: #4a5568;
+    white-space: nowrap; /* 避免文字换行导致布局错乱 */
+}
 
-        /* 问卷按钮样式（保持原有交互，增强阻尼感） */
-        .feedback-btn {
-            padding: 12px 24px;
-            border-radius: 30px;
-            background-color: rgba(209, 213, 219, 0.35);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid rgba(255, 255, 255, 0.85);
-            color: #374151;
-            font-weight: 500;
-            cursor: pointer;
-            /* 阻尼感过渡曲线 */
-            transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
-            box-shadow: 0 6px 20px rgba(156, 163, 175, 0.2),
-                        inset 0 2px 4px rgba(255, 255, 255, 0.5);
-            font-size: 16px;
-            position: relative;
-            overflow: hidden;
-        }
+/* 问卷按钮样式（保持原有交互，增强阻尼感） */
+.feedback-btn {
+    padding: 12px 24px;
+    border-radius: 30px;
+    background-color: rgba(209, 213, 219, 0.35);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    color: #374151;
+    font-weight: 500;
+    cursor: pointer;
+    /* 阻尼感过渡曲线 */
+    transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    box-shadow: 0 6px 20px rgba(156, 163, 175, 0.2),
+                inset 0 2px 4px rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+    position: relative;
+    overflow: hidden;
+}
 
-        /* 按钮动画（保持原有） */
-        .feedback-btn::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                rgba(255, 255, 255, 0.3) 0%,
-                rgba(255, 255, 255, 0) 100%
-            );
-            transform: rotate(30deg);
-            animation: glassShine 3s infinite linear;
-        }
+/* 按钮动画（保持原有） */
+.feedback-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    animation: glassShine 3s infinite linear;
+}
 
-        @keyframes glassShine {
-            0% { transform: rotate(30deg) translateX(-100%); }
-            100% { transform: rotate(30deg) translateX(100%); }
-        }
+@keyframes glassShine {
+    0% { transform: rotate(30deg) translateX(-100%); }
+    100% { transform: rotate(30deg) translateX(100%); }
+}
 
-        .feedback-btn:hover {
-            background-color: rgba(209, 213, 219, 0.45);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(156, 163, 175, 0.25),
-                        inset 0 2px 6px rgba(255, 255, 255, 0.6);
-        }
+.feedback-btn:hover {
+    background-color: rgba(209, 213, 219, 0.45);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(156, 163, 175, 0.25),
+                inset 0 2px 6px rgba(255, 255, 255, 0.6);
+}
 
-        .feedback-btn:active {
-            /* 阻尼感回弹效果 */
-            transform: translateY(-1px);
-            transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-            box-shadow: 0 4px 16px rgba(156, 163, 175, 0.2),
-                        inset 0 1px 3px rgba(255, 255, 255, 0.5);
-        }
+.feedback-btn:active {
+    /* 阻尼感回弹效果 */
+    transform: translateY(-1px);
+    transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    box-shadow: 0 4px 16px rgba(156, 163, 175, 0.2),
+                inset 0 1px 3px rgba(255, 255, 255, 0.5);
+}
 
         /* 主体内容区 - 增强玻璃质感 */
         .content-container {
@@ -288,6 +256,172 @@
             margin-bottom: -24px;
         }
 
+        /* 新增的窘迫现实区域 */
+        .embarrassing-section {
+            margin: 48px 0;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #4435aa 0%, #d9d3f7 100%);
+            padding: 30px;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .embarrassing-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .embarrassing-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 24px;
+        }
+
+        /* 弹窗样式 - 调整上下空隙+滚动+渐变背景 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 20px 0; /* 弹窗外层上下留空 */
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            /* 渐变背景：#01cf87 到 #dab4ff */
+            background: linear-gradient(135deg, #01cf87 0%, #dab4ff 100%);
+            border-radius: 16px;
+            padding: 40px 30px; /* 增加上下内边距，留空更明显 */
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh; /* 限制弹窗最大高度 */
+            overflow-y: auto; /* 内容超出时滚动 */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        /* 弹窗内容过渡动画样式 */
+        #lockContent, #secretTextContent {
+            width: 100%;
+            transition: all 0.6s cubic-bezier(0.645, 0.045, 0.355, 1);
+            overflow: hidden;
+        }
+
+        #lockContent {
+            max-height: 2000px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #lockContent.hidden {
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-20px);
+            margin-bottom: -20px;
+        }
+
+        #secretTextContent {
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(20px);
+            color: #333;
+        }
+
+        #secretTextContent.show {
+            max-height: 2000px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .lock-box {
+            background-color: #ff3b30;
+            color: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .lock-message {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .key-input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .key-input.error {
+            border-color: #ff3b30;
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translateX(-1px); }
+            20%, 80% { transform: translateX(2px); }
+            30%, 50%, 70% { transform: translateX(-3px); }
+            40%, 60% { transform: translateX(3px); }
+        }
+
+        .error-message {
+            color: #ff3b30;
+            font-size: 14px;
+            margin: -15px 0 20px;
+            height: 16px;
+            visibility: hidden;
+        }
+
+        .error-message.show {
+            visibility: visible;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .secret-text {
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 24px;
+            white-space: pre-line;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
         /* 淡入动画（仅用于导航栏和内容容器） */
         @keyframes fadeInUp {
             from {
@@ -334,14 +468,9 @@
                 line-height: 1.7;
             }
 
-            /* 弹窗移动端适配 */
-            .popup-container {
-                padding: 30px 20px;
-                border-radius: 18px;
-            }
-            
-            .popup-text {
-                font-size: 16px;
+            .modal {
+                padding: 30px 20px; /* 移动端弹窗内边距适配 */
+                max-height: 75vh; /* 移动端弹窗最大高度适配 */
             }
         }
 
@@ -395,32 +524,45 @@
                 box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
             }
 
-            /* 弹窗移动端适配 */
-            .popup-container {
-                padding: 24px 16px;
-                border-radius: 16px;
+            /* 移动端新增区域适配 */
+            .embarrassing-section {
+                padding: 20px 16px;
             }
             
-            .popup-text {
-                font-size: 15px;
-                margin-bottom: 24px;
+            .embarrassing-title {
+                font-size: 18px;
             }
             
-            .popup-container .feedback-btn {
+            .embarrassing-subtitle {
+                font-size: 14px;
+            }
+
+            .embarrassing-section .feedback-btn {
                 width: 100%;
+            }
+
+            /* 移动端弹窗适配 */
+            .modal {
+                padding: 25px 16px;
+                max-height: 70vh;
+            }
+            
+            .modal-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .modal-buttons .feedback-btn {
+                width: 100%;
+            }
+
+            .secret-text {
+                padding: 16px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 新增弹窗 -->
-    <div id="popup" class="popup-overlay">
-        <div class="popup-container">
-            <p class="popup-text">我正尝试接受一个文字无法描摹的现实，尝试将一份美好憧憬永藏心底，让质朴留下一丝痕迹。如果有一天，你看破了这句话是什么意思，也请你不要说破。</p>
-            <button class="feedback-btn" onclick="document.getElementById('popup').style.display='none'">进入页面</button>
-        </div>
-    </div>
-
     <!-- 导航栏 - 包含返回按钮 -->
     <nav class="navbar">
     <!-- 左侧标题 -->
@@ -481,6 +623,51 @@
             <div class="section-content">
                 一岁一礼，一寸欢喜，愿你每一天都如诗般美好，都如你待人的方式一般——温柔有光，从容有岸。2026，新年快乐！
             </div>
+
+            <!-- 新增的窘迫现实区域 -->
+            <div class="embarrassing-section">
+                <div class="embarrassing-title">我正面对一个很令人窘迫的现实</div>
+                <div class="embarrassing-subtitle">但我觉得跟你说不太合适</div>
+                <button class="feedback-btn" onclick="openModal()">点击验证</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 弹窗 -->
+    <div id="modal" class="modal-overlay">
+        <div class="modal">
+            <div id="lockContent">
+                <div class="lock-box">该部分内容已被管理员于2025年12月29日锁定</div>
+                <div class="lock-message">有些路，我觉得还是该我自己走。如果真给你看了，我认为不会产生什么积极效果、让质朴把某种美好愿景浅藏心底。时间，会给出最好的答案。</div>
+                <input type="text" id="keyInput" class="key-input" placeholder="请联系管理员获取访问密钥">
+                <div id="errorMsg" class="error-message">密钥错误，请重新输入</div>
+                <div class="modal-buttons">
+                    <button class="feedback-btn" onclick="verifyKey()">验证密钥</button>
+                    <button class="feedback-btn" onclick="closeModal()">暂时退出</button>
+                </div>
+            </div>
+            <div id="secretTextContent">
+                <div class="secret-text">
+我只希望看完这个不会让你心情太差姐姐.
+我觉得我干了一件非常对不起你男朋友的事，尽管我连他是谁都不知道。
+那就是喜欢他的女朋友......
+尽管碍于我和你不在同一个班甚至不在同一个年级等等因素，我深刻地认识到这个想法绝对不可能
+但人不就这样吗，一旦认定了就不甘心
+试问哪个女生甚至说哪个人能像你一样听我把话说完
+从来都是压根不理我或者人突然就不见了
+就像你说的，至少还有你可以陪我聊，至少还有呀。
+那天晚上我真绷不住了，十五年以来我什么时候听到过这样的话
+唉，算了，不说了，免得说我挖你男朋友墙角
+其实你生日那天发的那条朋友圈我通过一些细节已经初见端倪了
+我倒希望那天那个人不要来跟我说你有男朋友
+这样还能让我浸淫在幻想之中
+这是我的问题，没有经过调查就没有发言权
+总之,你让我的小世界不再孤寂
+唉，一个沉稳、温柔、成熟...的女神，相比之下我还是过于幼稚了。
+2025.12.28
+                </div>
+                <button class="feedback-btn" onclick="closeModal()">关闭</button>
+            </div>
         </div>
     </div>
 
@@ -527,12 +714,79 @@
             containerEl.classList.add('skip');
         }
 
+        // 弹窗相关函数
+        function openModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.add('active');
+            // 重置弹窗状态
+            const lockContent = document.getElementById('lockContent');
+            const secretTextContent = document.getElementById('secretTextContent');
+            
+            lockContent.classList.remove('hidden');
+            secretTextContent.classList.remove('show');
+            
+            document.getElementById('keyInput').value = '';
+            document.getElementById('keyInput').classList.remove('error');
+            document.getElementById('errorMsg').classList.remove('show');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('active');
+            // 重置弹窗内容状态
+            setTimeout(() => {
+                const lockContent = document.getElementById('lockContent');
+                const secretTextContent = document.getElementById('secretTextContent');
+                
+                lockContent.classList.remove('hidden');
+                secretTextContent.classList.remove('show');
+            }, 300);
+        }
+
+        function verifyKey() {
+            const correctKey = '202551005269';
+            const input = document.getElementById('keyInput');
+            const errorMsg = document.getElementById('errorMsg');
+            const lockContent = document.getElementById('lockContent');
+            const secretTextContent = document.getElementById('secretTextContent');
+            
+            if (input.value === correctKey) {
+                // 隐藏错误提示
+                errorMsg.classList.remove('show');
+                input.classList.remove('error');
+                
+                // 平滑隐藏锁定内容
+                lockContent.classList.add('hidden');
+                
+                // 延迟显示秘密内容，增强动画流畅度
+                setTimeout(() => {
+                    secretTextContent.classList.add('show');
+                }, 300);
+            } else {
+                // 密钥错误，显示错误信息并抖动输入框
+                input.classList.add('error');
+                errorMsg.classList.add('show');
+                
+                // 移除错误类以便下次可以再次触发动画
+                setTimeout(() => {
+                    input.classList.remove('error');
+                }, 500);
+            }
+        }
+
         // 初始加载时检查一次（显示首屏内容）
         window.addEventListener('load', checkVisibility);
         // 滚动时持续检查
         window.addEventListener('scroll', checkVisibility);
         // 窗口 resize 时重新检查
         window.addEventListener('resize', checkVisibility);
+
+        // 为输入框添加回车键验证功能
+        document.getElementById('keyInput').addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                verifyKey();
+            }
+        });
     </script>
     <!-- 页脚 -->
     <footer style="width: 100%; max-width: 1200px; margin-top: 60px; padding: 24px; text-align: center; color: #4a5568; font-size: 14px; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.3);">
