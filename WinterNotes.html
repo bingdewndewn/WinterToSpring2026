@@ -26,102 +26,104 @@
         }
 
         /* 导航栏样式 - 强化玻璃质感+确保宽度撑满 */
-.navbar {
-    width: 100%; /* 关键：撑满父容器宽度 */
-    max-width: 1200px; /* 限制最大宽度，避免过宽 */
-    margin: 0 auto 40px; /* 居中显示，底部留白 */
-    padding: 16px 24px;
-    display: flex;
-    justify-content: space-between; /* 左右元素分散对齐 */
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 24px;
-    position: relative;
-    z-index: 100;
-}
+        .navbar {
+            width: 100%; /* 关键：撑满父容器宽度 */
+            max-width: 1200px; /* 限制最大宽度，避免过宽 */
+            margin: 0 auto 40px; /* 居中显示，底部留白 */
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between; /* 左右元素分散对齐 */
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 24px;
+            position: relative;
+            z-index: 100;
+        }
 
-/* 左侧标题样式（保持原有） */
-.navbar-left {
-    font-size: 22px;
-    font-weight: 600;
-    color: #2d3748;
-}
+        /* 左侧标题样式（保持原有） */
+        .navbar-left {
+            font-size: 22px;
+            font-weight: 600;
+            color: #2d3748;
+        }
 
-/* 右侧容器（确保内容右对齐且不挤压） */
-.navbar-right {
-    display: flex;
-    align-items: center;
-    gap: 20px; /* 元素间距，避免拥挤 */
-}
+        /* 右侧容器（确保内容右对齐且不挤压） */
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px; /* 元素间距，避免拥挤 */
+        }
 
-/* 问候语样式 */
-.navbar-greeting {
-    font-size: 20px;
-    font-weight: 500;
-    color: #4a5568;
-    white-space: nowrap; /* 避免文字换行导致布局错乱 */
-}
+        /* 问候语样式 */
+        .navbar-greeting {
+            font-size: 20px;
+            font-weight: 500;
+            color: #4a5568;
+            white-space: nowrap; /* 避免文字换行导致布局错乱 */
+        }
 
-/* 问卷按钮样式（保持原有交互，增强阻尼感） */
-.feedback-btn {
-    padding: 12px 24px;
-    border-radius: 30px;
-    background-color: rgba(209, 213, 219, 0.35);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(255, 255, 255, 0.85);
-    color: #374151;
-    font-weight: 500;
-    cursor: pointer;
-    /* 阻尼感过渡曲线 */
-    transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
-    box-shadow: 0 6px 20px rgba(156, 163, 175, 0.2),
-                inset 0 2px 4px rgba(255, 255, 255, 0.5);
-    font-size: 16px;
-    position: relative;
-    overflow: hidden;
-}
+        /* 问卷按钮样式（保持原有交互，增强阻尼感） */
+        .feedback-btn {
+            padding: 12px 24px;
+            border-radius: 30px;
+            background-color: rgba(209, 213, 219, 0.35);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.85);
+            color: #374151;
+            font-weight: 500;
+            cursor: pointer;
+            /* 阻尼感过渡曲线 */
+            transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+            box-shadow: 0 6px 20px rgba(156, 163, 175, 0.2),
+                        inset 0 2px 4px rgba(255, 255, 255, 0.5);
+            font-size: 16px;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none; /* 按钮作为链接时去除下划线 */
+            display: inline-block; /* 保证padding生效 */
+        }
 
-/* 按钮动画（保持原有） */
-.feedback-btn::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-        to bottom right,
-        rgba(255, 255, 255, 0.3) 0%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    transform: rotate(30deg);
-    animation: glassShine 3s infinite linear;
-}
+        /* 按钮动画（保持原有） */
+        .feedback-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.3) 0%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: glassShine 3s infinite linear;
+        }
 
-@keyframes glassShine {
-    0% { transform: rotate(30deg) translateX(-100%); }
-    100% { transform: rotate(30deg) translateX(100%); }
-}
+        @keyframes glassShine {
+            0% { transform: rotate(30deg) translateX(-100%); }
+            100% { transform: rotate(30deg) translateX(100%); }
+        }
 
-.feedback-btn:hover {
-    background-color: rgba(209, 213, 219, 0.45);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(156, 163, 175, 0.25),
-                inset 0 2px 6px rgba(255, 255, 255, 0.6);
-}
+        .feedback-btn:hover {
+            background-color: rgba(209, 213, 219, 0.45);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(156, 163, 175, 0.25),
+                        inset 0 2px 6px rgba(255, 255, 255, 0.6);
+        }
 
-.feedback-btn:active {
-    /* 阻尼感回弹效果 */
-    transform: translateY(-1px);
-    transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-    box-shadow: 0 4px 16px rgba(156, 163, 175, 0.2),
-                inset 0 1px 3px rgba(255, 255, 255, 0.5);
-}
+        .feedback-btn:active {
+            /* 阻尼感回弹效果 */
+            transform: translateY(-1px);
+            transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+            box-shadow: 0 4px 16px rgba(156, 163, 175, 0.2),
+                        inset 0 1px 3px rgba(255, 255, 255, 0.5);
+        }
 
         /* 主体内容区 - 增强玻璃质感 */
         .content-container {
@@ -276,6 +278,40 @@
             font-size: 16px;
             opacity: 0.9;
             margin-bottom: 24px;
+        }
+
+        /* 新增：最后的最后区域样式 */
+        .final-section {
+            margin: 48px 0;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #4458bc 0%, #fcc5c5 100%);
+            padding: 30px;
+            color: #2d3748;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .final-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        .final-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #2d3748;
+            margin-bottom: 24px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .final-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center; /* 按钮居中排列 */
         }
 
         /* 弹窗样式 - 调整上下空隙+滚动+渐变背景 */
@@ -445,13 +481,8 @@
                 font-size: 18px;
             }
 
-            .greeting {
+            .navbar-greeting {
                 font-size: 15px;
-            }
-
-            .back-button {
-                padding: 8px 16px;
-                font-size: 14px;
             }
 
             .content-container {
@@ -471,6 +502,31 @@
             .modal {
                 padding: 30px 20px; /* 移动端弹窗内边距适配 */
                 max-height: 75vh; /* 移动端弹窗最大高度适配 */
+            }
+
+            /* 最后的最后区域移动端适配 */
+            .final-section {
+                padding: 20px 16px;
+            }
+
+            .final-title {
+                font-size: 18px;
+            }
+
+            .final-content {
+                font-size: 14px;
+                padding: 16px;
+            }
+
+            .final-buttons {
+                gap: 12px;
+            }
+
+            .final-buttons .feedback-btn {
+                padding: 10px 16px;
+                font-size: 14px;
+                flex: 1; /* 按钮平分宽度 */
+                min-width: 120px; /* 最小宽度保证可读性 */
             }
         }
 
@@ -524,7 +580,7 @@
                 box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
             }
 
-            /* 移动端新增区域适配 */
+            /* 移动端窘迫现实区域适配 */
             .embarrassing-section {
                 padding: 20px 16px;
             }
@@ -539,6 +595,22 @@
 
             .embarrassing-section .feedback-btn {
                 width: 100%;
+            }
+
+            /* 移动端最后的最后区域适配 */
+            .final-section {
+                padding: 20px 16px;
+            }
+
+            .final-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .final-buttons .feedback-btn {
+                width: 100%;
+                padding: 10px 20px;
+                font-size: 14px;
             }
 
             /* 移动端弹窗适配 */
@@ -565,16 +637,14 @@
 <body>
     <!-- 导航栏 - 包含返回按钮 -->
     <nav class="navbar">
-    <!-- 左侧标题 -->
-    <div class="navbar-left">Winter to Spring</div>
-    <!-- 右侧内容区（使用flex布局自动填充剩余空间） -->
-    <div class="navbar-right">
-        <div class="navbar-greeting">Hi,XMQ.</div>
-        <button class="feedback-btn" onclick="window.open('https://v.wjx.cn/vm/h4wd2xR.aspx# ','_blank')">
-            问卷反馈
-        </button>
-    </div>
-</nav>
+        <!-- 左侧标题 -->
+        <div class="navbar-left">Winter to Spring</div>
+        <!-- 右侧内容区（使用flex布局自动填充剩余空间） -->
+        <div class="navbar-right">
+            <div class="navbar-greeting">Hi,XMQ.</div>
+            <a href="https://v.wjx.cn/vm/h4wd2xR.aspx#" target="_blank" class="feedback-btn">问卷反馈</a>
+        </div>
+    </nav>
 
     <!-- 主体内容容器 -->
     <div class="content-container">
@@ -629,6 +699,33 @@
                 <div class="embarrassing-title">我正面对一个很令人窘迫的现实</div>
                 <div class="embarrassing-subtitle">但我觉得跟你说不太合适</div>
                 <button class="feedback-btn" onclick="openModal()">点击验证</button>
+            </div>
+
+            <!-- 新增：最后的最后区域 -->
+            <div class="final-section">
+                <div class="final-title">最后的最后</div>
+                <div class="final-content">
+                    姐姐<br>
+                    如果您对这个网站的内容有任何意见（或者是...不满）随时恭候你微信上跟我说呀~<br>
+                    你给我提出的意见还是非常有用的<br>
+                    最后，以一些新年献词结尾：<br>
+                    人的意义，不是追赶未来，而是在确认值得奔赴的方向后，去全力以赴；一个人或许并不强大，但无数最柔软的力量，也能修筑起最坚固的人间。<br>
+                    新年的钟声即将敲响，你的窗外或飘雪或起风，总有晨光刺破云层。此刻，看看你的身边，展开你的微笑，走向更多的人们吧。生命的显影不在他处，就从最简单的相交开始；历史的书写并不艰深，不过是给时间一点时间；文明的形状并不复杂，就是人走在人间的样子。2026，愿你活出韧劲，写出自己那更好的一撇一捺。<br>
+                    ——《南方周末2026新年献词》<br>
+                    总有一种力量让我们泪流满面<br>
+                    ——《南方周末1999新年献词》<br>
+                    每一粒萤火都是炬火，每一条来路总有出路<br>
+                    ——《浙江宣传2026新年献词》<br>
+                    点点萤火，都是炬火；千般来路，总有出路。2026年，愿我们都勇敢地去发光，去相信，去热爱，去生长，步步坚实，步步无悔。<br>
+                    ——《浙江宣传2026新年献词》
+                </div>
+                <div class="final-buttons">
+                    <!-- 新年献词链接，路径留空，需自行补充 -->
+                    <a href="https://weibo.com/ttarticle/p/show?id=2309405249472069763287" target="_blank" class="feedback-btn">浙江宣传2026新年献词</a>
+                    <a href="https://static.cdsb.com/micropub/Articles/202512/bbe3bf26a47f3614fbebfefa125c4c02.html" target="_blank" class="feedback-btn">红星新闻2026新年献词</a>
+                    <a href="https://weibo.com/ttarticle/p/show?id=2309405249115033829465" target="_blank" class="feedback-btn">南方周末2026新年献词</a>
+                    <a href="https://www.peopleapp.com/column/30047929158-500006034317" target="_blank" class="feedback-btn">人民日报2026新年献词</a>
+                </div>
             </div>
         </div>
     </div>
